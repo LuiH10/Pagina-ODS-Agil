@@ -1,0 +1,344 @@
+/* ==================== PANEL DE USUARIO ==================== */
+
+.user-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 400;
+    animation: fadeIn 0.25s ease;
+}
+.user-overlay.active { display: block; }
+
+.user-panel {
+    position: fixed;
+    top: 0;
+    right: -420px;
+    width: 100%;
+    max-width: 420px;
+    height: 100vh;
+    background: var(--white);
+    z-index: 500;
+    box-shadow: var(--shadow-lg);
+    transition: right 0.35s cubic-bezier(0.4,0,0.2,1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.user-panel.open { right: 0; }
+
+/* ── Header del panel ── */
+.upanel-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem 1.5rem 1rem;
+    border-bottom: 2px solid var(--light-green);
+    flex-shrink: 0;
+}
+.upanel-header h2 {
+    flex: 1;
+    font-size: 1.4rem;
+    color: var(--gray-dark);
+    margin: 0;
+}
+.upanel-close {
+    background: none;
+    border: none;
+    font-size: 1.3rem;
+    color: var(--gray-medium);
+    cursor: pointer;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+.upanel-close:hover { background: var(--gray-light); color: var(--gray-dark); }
+
+/* ── Avatar ── */
+.profile-avatar {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    background: var(--accent-green);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+.profile-email {
+    font-size: 0.82rem;
+    color: var(--gray-medium);
+    margin: 0;
+}
+
+/* ── Tabs auth ── */
+.auth-tabs {
+    display: flex;
+    border-bottom: 2px solid #e0e0e0;
+    flex-shrink: 0;
+}
+.auth-tab {
+    flex: 1;
+    padding: 1rem;
+    background: none;
+    border: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--gray-medium);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    transition: var(--transition);
+}
+.auth-tab.active {
+    color: var(--accent-green);
+    border-bottom-color: var(--accent-green);
+}
+
+/* ── Formularios ── */
+.auth-form {
+    padding: 1.5rem;
+    overflow-y: auto;
+    flex: 1;
+}
+.auth-info {
+    font-size: 0.88rem;
+    color: var(--gray-medium);
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+    background: var(--light-green);
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+}
+.field-group {
+    margin-bottom: 1.1rem;
+}
+.field-group label {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--gray-dark);
+    margin-bottom: 0.4rem;
+}
+.field-hint {
+    font-weight: 400;
+    color: var(--gray-medium);
+}
+.field-group input {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    transition: var(--transition);
+    background: var(--white);
+}
+.field-group input:focus {
+    outline: none;
+    border-color: var(--accent-green);
+    box-shadow: 0 0 0 3px rgba(37,161,72,0.1);
+}
+.auth-error {
+    font-size: 0.85rem;
+    color: #c81e1e;
+    min-height: 1.2rem;
+    margin-bottom: 0.75rem;
+}
+.btn-primary {
+    width: 100%;
+    padding: 0.95rem;
+    background: var(--accent-green);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+}
+.btn-primary:hover { background: var(--primary-green); transform: translateY(-1px); }
+.btn-primary:active { transform: translateY(0); }
+
+/* ── Navegación perfil ── */
+.profile-nav {
+    display: flex;
+    gap: 0.25rem;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #e0e0e0;
+    flex-shrink: 0;
+}
+.profile-nav-btn {
+    flex: 1;
+    padding: 0.6rem 0.4rem;
+    background: none;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--gray-medium);
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: center;
+}
+.profile-nav-btn.active {
+    background: var(--light-green);
+    border-color: var(--accent-green);
+    color: var(--primary-green);
+}
+.profile-nav-btn:hover:not(.active) { background: var(--gray-light); }
+
+/* ── Secciones del perfil ── */
+.profile-section {
+    padding: 1.5rem;
+    overflow-y: auto;
+    flex: 1;
+}
+.profile-section h3 {
+    font-size: 1.1rem;
+    color: var(--gray-dark);
+    margin-bottom: 1rem;
+}
+.section-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.section-header-row h3 { margin: 0; }
+.btn-danger-sm {
+    padding: 0.4rem 0.9rem;
+    background: none;
+    border: 2px solid #c81e1e;
+    color: #c81e1e;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+.btn-danger-sm:hover { background: #ffe8e8; }
+
+/* ── Historial ── */
+.historial-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+.historial-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+    background: var(--gray-light);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: var(--transition);
+    border: 2px solid transparent;
+}
+.historial-item:hover {
+    background: var(--light-green);
+    border-color: var(--accent-green);
+}
+.historial-item-icono { font-size: 1.3rem; flex-shrink: 0; }
+.historial-item-info { flex: 1; min-width: 0; }
+.historial-item-nombre {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--gray-dark);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.historial-item-meta {
+    font-size: 0.76rem;
+    color: var(--gray-medium);
+    margin-top: 0.1rem;
+}
+.historial-badge {
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 0.25rem 0.6rem;
+    border-radius: 50px;
+    flex-shrink: 0;
+}
+.historial-badge.si { background: var(--light-green); color: var(--primary-green); }
+.historial-badge.no { background: #ffe8e8; color: #c81e1e; }
+.historial-vacio {
+    text-align: center;
+    padding: 2rem;
+    color: var(--gray-medium);
+    font-size: 0.9rem;
+}
+
+/* ── Preferencias ── */
+.pref-desc {
+    font-size: 0.85rem;
+    color: var(--gray-medium);
+    margin-bottom: 1.2rem;
+    line-height: 1.5;
+}
+.pref-categorias {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+}
+.pref-cat-btn {
+    padding: 0.75rem 0.5rem;
+    background: var(--gray-light);
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--gray-dark);
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: center;
+}
+.pref-cat-btn:hover { border-color: var(--accent-green); background: var(--light-green); }
+.pref-cat-btn.active {
+    background: var(--accent-green);
+    color: white;
+    border-color: var(--accent-green);
+}
+.pref-ok {
+    font-size: 0.88rem;
+    color: var(--primary-green);
+    font-weight: 600;
+    margin: 0.75rem 0;
+}
+
+/* ── Cerrar sesión ── */
+.logout-row {
+    padding: 1rem 1.5rem 1.5rem;
+    border-top: 1px solid #e0e0e0;
+    flex-shrink: 0;
+}
+.btn-logout {
+    width: 100%;
+    padding: 0.85rem;
+    background: none;
+    border: 2px solid #c81e1e;
+    color: #c81e1e;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+}
+.btn-logout:hover { background: #ffe8e8; }
+
+/* ── Utilidades ── */
+.hidden { display: none !important; }
+
+@media (max-width: 480px) {
+    .user-panel { max-width: 100%; }
+    .pref-categorias { grid-template-columns: 1fr; }
+}

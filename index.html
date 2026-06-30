@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Recicla</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="usuario.css">
+</head>
+<body>
+
+<!-- ═══════════════════════ HEADER ═══════════════════════ -->
+<header class="header">
+    <div class="header-container">
+        <div class="logo">
+            <span class="logo-text">guía<span class="logo-accent">recicla</span></span>
+        </div>
+        <div class="user-icon" id="userIcon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+        </div>
+    </div>
+</header>
+
+<!-- ═══════════════════════ MAIN ═══════════════════════ -->
+<main class="main-content">
+    <section class="hero">
+        <div class="hero-text">
+            <p class="hero-subtitle">TU GUÍA DE RESIDUOS</p>
+            <h1 class="hero-title">¿Qué quieres <span class="accent-text">reciclar</span> hoy?</h1>
+        </div>
+        <div class="search-container">
+            <input type="text" class="search-input" id="searchInput" placeholder="Ej: botella plástica, cartón, pila..." autocomplete="off">
+            <button class="search-btn" id="searchBtn">Buscar</button>
+        </div>
+        <div class="categories">
+            <button class="category-btn" data-category="plastico"><span class="category-icon">♻️</span><span>Plástico</span></button>
+            <button class="category-btn" data-category="vidrio"><span class="category-icon">🍷</span><span>Vidrio</span></button>
+            <button class="category-btn" data-category="papel"><span class="category-icon">📄</span><span>Papel</span></button>
+            <button class="category-btn" data-category="electronico"><span class="category-icon">🔌</span><span>Electrónicos</span></button>
+            <button class="category-btn" data-category="organico"><span class="category-icon">🌱</span><span>Orgánico</span></button>
+        </div>
+    </section>
+
+    <section class="results-section" id="resultsSection" style="display:none;">
+
+        <!-- Grilla de tarjetas -->
+        <div class="search-results-list" id="searchResultsList" style="display:none;">
+            <h3 class="results-title" id="resultsTitle"></h3>
+            <div class="results-grid" id="resultsGrid"></div>
+        </div>
+
+        <!-- Detalle de un producto -->
+        <div class="results-container" id="resultsContainer" style="display:none;">
+            <div class="product-info">
+
+                <div class="result-header">
+                    <h2 class="product-name" id="productName"></h2>
+                    <div class="recycling-indicator" id="recyclingIndicator">
+                        <span class="indicator-icon" id="indicatorIcon">✓</span>
+                        <span class="indicator-text" id="indicatorText">Sí se recicla</span>
+                    </div>
+                </div>
+
+                <!-- IMAGEN DEL PRODUCTO -->
+                <div class="product-image-wrapper" id="productImageWrapper" style="display:none;">
+                    <img id="productImage" src="" alt="" class="product-img">
+                </div>
+
+                <div class="instructions-section">
+                    <h3 class="section-title">Instrucciones</h3>
+                    <ol class="instructions-list" id="instructionsList"></ol>
+                </div>
+
+                <div class="warnings-section">
+                    <h3 class="section-title">Evitar</h3>
+                    <div class="warning-box" id="warningBox"></div>
+                </div>
+            </div>
+
+            <!-- VIDEO -->
+            <div class="video-section">
+                <div class="video-container">
+                    <div class="video-placeholder" id="videoPlaceholder">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M5 3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H5zm8 7l5 4H8l5-4z"></path>
+                        </svg>
+                    </div>
+                    <button class="play-btn" id="playBtn">Reproducir</button>
+                </div>
+                <p class="video-label">TUTORIAL EN VIDEO</p>
+                <h4 class="video-title" id="videoTitle">Cómo reciclar correctamente en casa</h4>
+            </div>
+        </div>
+    </section>
+
+    <section class="empty-state" id="emptyState">
+        <div class="empty-state-content">
+            <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+            </svg>
+            <p>Busca un producto o selecciona una categoría para comenzar</p>
+        </div>
+    </section>
+</main>
+
+<footer class="footer"></footer>
+
+<!-- ═══════════════════════ PANEL USUARIO ═══════════════════════ -->
+<div class="user-overlay" id="userOverlay"></div>
+<div class="user-panel" id="userPanel">
+
+    <div class="upanel-auth" id="upanelAuth">
+        <div class="upanel-header">
+            <h2>Mi cuenta</h2>
+            <button class="upanel-close" id="userPanelClose">✕</button>
+        </div>
+        <div class="auth-tabs">
+            <button class="auth-tab active" data-tab="login">Iniciar sesión</button>
+            <button class="auth-tab" data-tab="registro">Crear cuenta</button>
+        </div>
+        <div class="auth-form" id="formLogin">
+            <p class="auth-info">Inicia sesión para guardar tu historial y preferencias. <strong>No es obligatorio</strong> para usar la página.</p>
+            <div class="field-group">
+                <label>Correo electrónico</label>
+                <input type="email" id="loginEmail" placeholder="tu@correo.com">
+            </div>
+            <div class="field-group">
+                <label>Contraseña</label>
+                <input type="password" id="loginPassword" placeholder="••••••">
+            </div>
+            <p class="auth-error" id="loginError"></p>
+            <button class="btn-primary" id="btnLogin">Iniciar sesión</button>
+        </div>
+        <div class="auth-form hidden" id="formRegistro">
+            <p class="auth-info">Crea una cuenta gratis para guardar tu historial y preferencias.</p>
+            <div class="field-group">
+                <label>Nombre</label>
+                <input type="text" id="regNombre" placeholder="Tu nombre">
+            </div>
+            <div class="field-group">
+                <label>Correo electrónico</label>
+                <input type="email" id="regEmail" placeholder="tu@correo.com">
+            </div>
+            <div class="field-group">
+                <label>Contraseña <span class="field-hint">(mínimo 6 caracteres)</span></label>
+                <input type="password" id="regPassword" placeholder="••••••">
+            </div>
+            <p class="auth-error" id="regError"></p>
+            <button class="btn-primary" id="btnRegistro">Crear cuenta</button>
+        </div>
+    </div>
+
+    <div class="upanel-profile hidden" id="upanelProfile">
+        <div class="upanel-header">
+            <div class="profile-avatar" id="profileAvatar">U</div>
+            <div>
+                <h2 id="profileNombre">Usuario</h2>
+                <p id="profileEmail" class="profile-email"></p>
+            </div>
+            <button class="upanel-close" id="userPanelClose2">✕</button>
+        </div>
+        <div class="profile-nav">
+            <button class="profile-nav-btn active" data-section="historial">📋 Historial</button>
+            <button class="profile-nav-btn" data-section="preferencias">⚙️ Preferencias</button>
+            <button class="profile-nav-btn" data-section="password">🔒 Contraseña</button>
+        </div>
+        <div class="profile-section" id="sectionHistorial">
+            <div class="section-header-row">
+                <h3>Historial de búsquedas</h3>
+                <button class="btn-danger-sm" id="btnBorrarHistorial">Borrar todo</button>
+            </div>
+            <div id="historialLista" class="historial-lista"></div>
+        </div>
+        <div class="profile-section hidden" id="sectionPreferencias">
+            <h3>Categoría favorita</h3>
+            <p class="pref-desc">Al iniciar sesión, se filtrará automáticamente tu categoría preferida.</p>
+            <div class="pref-categorias" id="prefCategorias">
+                <button class="pref-cat-btn" data-slug="">Sin preferencia</button>
+                <button class="pref-cat-btn" data-slug="plastico">♻️ Plástico</button>
+                <button class="pref-cat-btn" data-slug="vidrio">🍷 Vidrio</button>
+                <button class="pref-cat-btn" data-slug="papel">📄 Papel</button>
+                <button class="pref-cat-btn" data-slug="electronico">🔌 Electrónicos</button>
+                <button class="pref-cat-btn" data-slug="organico">🌱 Orgánico</button>
+            </div>
+            <p class="pref-ok hidden" id="prefOk">✓ Preferencia guardada</p>
+        </div>
+        <div class="profile-section hidden" id="sectionPassword">
+            <h3>Cambiar contraseña</h3>
+            <div class="field-group">
+                <label>Contraseña actual</label>
+                <input type="password" id="pwActual" placeholder="••••••">
+            </div>
+            <div class="field-group">
+                <label>Nueva contraseña <span class="field-hint">(mínimo 6 caracteres)</span></label>
+                <input type="password" id="pwNueva" placeholder="••••••">
+            </div>
+            <p class="auth-error" id="pwError"></p>
+            <p class="pref-ok hidden" id="pwOk">✓ Contraseña actualizada</p>
+            <button class="btn-primary" id="btnCambiarPw">Actualizar contraseña</button>
+        </div>
+        <div class="logout-row">
+            <button class="btn-logout" id="btnLogout">Cerrar sesión</button>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+<script src="usuario.js"></script>
+</body>
+</html>
